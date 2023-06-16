@@ -4,12 +4,9 @@ import com.bemate.domain.user.endpoint.request.RegisterRequest;
 import com.bemate.domain.user.service.UserWriteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import static org.springframework.util.StringUtils.hasText;
 
 @RestController
 @RequiredArgsConstructor

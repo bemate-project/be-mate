@@ -1,6 +1,7 @@
-package com.bemate.domain.user.endpoint;
+package com.bemate.domain.user.entity;
 
 import com.bemate.domain.user.Role;
+import com.bemate.domain.user.entity.BaseEntity;
 import com.bemate.global.util.PasswordUtil;
 import jakarta.persistence.*;
 import lombok.*;

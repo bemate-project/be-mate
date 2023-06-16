@@ -1,8 +1,6 @@
 package com.bemate.global.util;
 
 import com.bemate.domain.auth.PasswordVerification;
-import com.bemate.global.config.SecurityConfig;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -18,14 +16,13 @@ public class PasswordUtil {
     }
 
     public static boolean matches(PasswordVerification passwordVerification) {
-        var ac = new AnnotationConfigApplicationContext(SecurityConfig.class);
-        var passwordEncoder = ac.getBean("passwordEncoder", PasswordEncoder.class);
-
         var salt = passwordVerification.getSalt();
         var plainPassword = passwordVerification.getPlainPassword();
         var hashedPassword = passwordVerification.getHashedPassword();
 
+        var passwordEncoder = ApplicationContextProvider
+                .getApplicationContext()
+                .getBean("passwordEncoder", PasswordEncoder.class);
         return passwordEncoder.matches(plainPassword + salt, hashedPassword);
     }
-
 }

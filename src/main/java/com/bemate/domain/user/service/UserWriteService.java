@@ -1,12 +1,11 @@
 package com.bemate.domain.user.service;
 
-import com.bemate.domain.user.endpoint.User;
+import com.bemate.domain.user.entity.User;
 import com.bemate.domain.user.repository.UserRepository;
 import com.bemate.global.exception.UserAlreadyExistsException;
 import com.bemate.global.exception.handler.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
