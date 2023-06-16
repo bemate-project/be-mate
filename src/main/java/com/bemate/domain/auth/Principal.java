@@ -1,4 +1,4 @@
-package com.bemate.domain.user;
+package com.bemate.domain.auth;
 
 import lombok.Builder;
 

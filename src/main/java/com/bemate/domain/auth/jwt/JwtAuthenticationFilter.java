@@ -1,6 +1,6 @@
 package com.bemate.domain.auth.jwt;
 
-import com.bemate.domain.user.UserAuthentication;
+import com.bemate.domain.auth.UserAuthentication;
 import com.bemate.global.exception.TokenTypeMismatchException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

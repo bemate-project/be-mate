@@ -1,7 +1,7 @@
 package com.bemate.domain.user.endpoint.request;
 
 import com.bemate.domain.user.Role;
-import com.bemate.domain.user.endpoint.User;
+import com.bemate.domain.user.entity.User;
 import jakarta.annotation.Nullable;
 import lombok.Getter;
 import lombok.NonNull;

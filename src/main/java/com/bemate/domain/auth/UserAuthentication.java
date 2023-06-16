@@ -1,5 +1,6 @@
-package com.bemate.domain.user;
+package com.bemate.domain.auth;
 
+import com.bemate.domain.user.Role;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
