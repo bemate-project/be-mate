@@ -1,14 +1,15 @@
 package com.bemate.domain.auth.jwt;
 
-import com.bemate.domain.auth.UserDetailsServiceImpl;
 import com.bemate.domain.user.Role;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Map;
 
 @Slf4j
@@ -16,47 +17,42 @@ import java.util.Map;
 @AllArgsConstructor
 public class JwtTokenProvider {
 
-    @Value("spring.jwt.secret")
     private static String secretKey;
+    private static Key signingKey;
 
-    public static String generateToken(Map<String, Object> payload) {
+    public static String generateToken(Map payload) {
         return Jwts.builder()
                 .setClaims(payload)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(signingKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public static String parseTokenType(String token) {
-        return Jwts.parser()
-                .setSigningKey(secretKey)
+        return Jwts.parserBuilder()
+                .setSigningKey(signingKey)
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .get("type", String.class);
     }
 
     public static Long parseUserNo(String token) {
-        return Jwts.parser()
-                .setSigningKey(secretKey)
+        return Jwts.parserBuilder()
+                .setSigningKey(signingKey)
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .get("userNo", Long.class);
     }
 
-    public static Role parseRole(String token) {
-        return Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody()
-                .get("role", Role.class);
-    }
-
     public static boolean validateToken(String token) {
         try {
-            Jwts.parser()
-                    .setSigningKey(secretKey)
+            Jwts.parserBuilder()
+                    .setSigningKey(signingKey)
+                    .build()
                     .parseClaimsJws(token);
             return true;
-        } catch (SignatureException ex) {
+        } catch (SecurityException ex) {
             log .error("Invalid JWT signature", ex);
         } catch (MalformedJwtException ex) {
             log.error("Invalid JWT token", ex);
@@ -68,5 +64,15 @@ public class JwtTokenProvider {
             log.error("JWT claims string is empty.", ex);
         }
         return false;
+    }
+
+    public static Key getSigningKey() {
+        return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Value("${spring.jwt.secret}")
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+        this.signingKey = getSigningKey();
     }
 }

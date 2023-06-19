@@ -27,9 +27,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.disable())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
-                        (request) -> request.requestMatchers("/users", "auths/**")
+                        (request) -> request.requestMatchers("/users", "/auths/**")
                                 .permitAll()
-                                .requestMatchers("/shelters").hasRole("SHELTER")
                                 .anyRequest()
                                 .authenticated()
                 )

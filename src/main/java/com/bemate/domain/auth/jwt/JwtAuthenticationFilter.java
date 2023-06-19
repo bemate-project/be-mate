@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throw TokenTypeMismatchException.accessTokenExpected(jwt);
         }
 
-        var authentication = new UserAuthentication(parseUserNo(jwt), parseRole(jwt));
+        var authentication = new UserAuthentication(parseUserNo(jwt));
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

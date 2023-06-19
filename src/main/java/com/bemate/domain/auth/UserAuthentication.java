@@ -10,8 +10,8 @@ public class UserAuthentication extends AbstractAuthenticationToken {
 
     private Principal principal;
 
-    public UserAuthentication(Long userNo, Role role) {
-        super(Arrays.asList(new SimpleGrantedAuthority(role.name())));
+    public UserAuthentication(Long userNo) {
+        super(null);
         this.principal = Principal.builder()
                 .userNo(userNo)
                 .build();
