@@ -21,8 +21,6 @@ public class User extends BaseEntity {
     private String nickname;
     private String salt;
     private String password;
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     public void hashCredential(String password) {
         var salt = PasswordUtil.genSalt();
