@@ -7,6 +7,7 @@ import com.bemate.domain.auth.service.LoginService;
 import com.bemate.domain.user.service.UserQueryService;
 import com.bemate.global.exception.PasswordMismatchException;
 import com.bemate.global.util.PasswordUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class LoginEndpoint {
     private final LoginService loginService;
 
     @PostMapping("/auths/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
         var user = userQueryService.findByEmail(loginRequest.getEmail());
 
         var passwordVerification = PasswordVerification.builder()

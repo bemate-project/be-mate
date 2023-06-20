@@ -1,6 +1,5 @@
 package com.bemate.domain.auth.jwt;
 
-import com.bemate.domain.user.Role;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
