@@ -8,9 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate Environment Variables File for Production
+        with:
+          files: ./src/main/resources/application.yml 
         env:
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          API_SERVICE_KEY: ${{ secrets.API_SERVICE_KEY }}
-        run: |
-          echo $GIT_EMAIL
-          echo $GIT_NAME
+          spring.jwt.secret: ${{ secrets.JWT_SECRET }} 
+          openapi.key: ${{ secrets.API_SERVICE_KEY }} 
