@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 @Builder
@@ -18,10 +19,10 @@ public class ShelterUser extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shelter_user_no")
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_no")
     private User user;
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "shelter_no")
     private Shelter shelter;
 }

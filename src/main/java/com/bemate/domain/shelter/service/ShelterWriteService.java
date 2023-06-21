@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class ShelterWriteService {
 
     private final ShelterRepository shelterRepository;
+    private final ShelterQueryService shelterQueryService;
 
     public Shelter register(Shelter shelter) {
         if(isAlreadyExists(shelter.getShelterName())) {
@@ -23,7 +24,7 @@ public class ShelterWriteService {
 
     private boolean isAlreadyExists(String name) {
         try {
-            shelterRepository.findByShelterName(name);
+            shelterQueryService.findByName(name);
         } catch (NotFoundException e) {
             return false;
         }

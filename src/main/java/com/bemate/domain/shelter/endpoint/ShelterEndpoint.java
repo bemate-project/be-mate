@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class ShelterEndpoint {
-
+  
     private final ShelterWriteService shelterWriteService;
     private final ShelterUserWriteService shelterUserWriteService;
     private final UserQueryService userQueryService;
