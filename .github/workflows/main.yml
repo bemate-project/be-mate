@@ -1,0 +1,16 @@
+name: Automatically Deployment
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Environment Variables File for Production
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          API_SERVICE_KEY: ${{ secrets.API_SERVICE_KEY }}
+        run: |
+          echo $GIT_EMAIL
+          echo $GIT_NAME
