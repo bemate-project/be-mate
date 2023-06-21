@@ -10,4 +10,8 @@ public class UserNotFoundException extends NotFoundException {
     public static UserNotFoundException byEmail(String email) {
         return new UserNotFoundException(String.format("User is not found - email: %s", email));
     }
+
+    public static UserNotFoundException byId(Long id) {
+        return new UserNotFoundException(String.format("User is not found - id: %s", id));
+    }
 }

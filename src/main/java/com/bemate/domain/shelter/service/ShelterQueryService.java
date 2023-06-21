@@ -8,25 +8,30 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-
 import java.util.ArrayList;
 import java.util.List;
+import com.bemate.domain.shelter.entity.Shelter;
+import com.bemate.domain.shelter.repository.ShelterRepository;
+import com.bemate.global.exception.ShelterNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 
 @Service
 @RequiredArgsConstructor
 public class ShelterQueryService {
 
-//    private final ShelterRepository shelterRepository;
+    private final ShelterRepository shelterRepository;
     private static final String BASE_URL = "http://apis.data.go.kr";
     private static final String PATH = "1543061/abandonmentPublicSrvc/shelter";
 
     @Value("${openapi.shelter.key}")
     private String serviceKey;
 
-//    public Shelter findByName(String name) {
-//        return shelterRepository.findByShelterName(name)
-//                .orElseThrow(() -> ShelterNotFoundException.byName(name));
-//    }
+    public Shelter findByName(String name) {
+        return shelterRepository.findByShelterName(name)
+                .orElseThrow(() -> ShelterNotFoundException.byName(name));
+    }
 
     public List<String> getAllShelters() {
         var response = getApiResponse();

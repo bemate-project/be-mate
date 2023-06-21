@@ -1,0 +1,15 @@
+name: Automatically Deployment
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Environment Variables File for Production
+        with:
+          files: ./src/main/resources/application.yml 
+        env:
+          spring.jwt.secret: ${{ secrets.JWT_SECRET }} 
+          openapi.key: ${{ secrets.API_SERVICE_KEY }} 

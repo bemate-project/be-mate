@@ -1,10 +1,13 @@
 package com.bemate.domain.user.entity;
 
+import com.bemate.domain.shelter.entity.ShelterUser;
 import com.bemate.domain.user.Role;
 import com.bemate.domain.user.entity.BaseEntity;
 import com.bemate.global.util.PasswordUtil;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Builder
@@ -21,6 +24,9 @@ public class User extends BaseEntity {
     private String nickname;
     private String salt;
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<ShelterUser> shelterUsers;
 
     public void hashCredential(String password) {
         var salt = PasswordUtil.genSalt();

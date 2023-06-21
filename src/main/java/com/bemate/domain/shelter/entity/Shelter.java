@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import java.util.List;
 
 @Entity
 @Builder
@@ -17,5 +20,12 @@ public class Shelter extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shelter_no")
     private Long id;
-    private String name;
+    private String shelterName;
+    private String email;
+    private String zipCode;
+    private String streetAddress;
+    private String detailAddress;
+
+    @OneToMany(mappedBy = "shelter")
+    private List<ShelterUser> shelterUsers;
 }
