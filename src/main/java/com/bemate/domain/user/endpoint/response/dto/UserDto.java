@@ -1,4 +1,4 @@
-package com.bemate.domain.auth.endpoint.response.dto;
+package com.bemate.domain.user.endpoint.response.dto;
 
 import com.bemate.domain.user.entity.User;
 import lombok.Builder;

@@ -1,5 +1,8 @@
 package com.bemate.domain.shelter.service;
 
+import com.bemate.domain.shelter.entity.Shelter;
+import com.bemate.domain.shelter.repository.ShelterRepository;
+import com.bemate.global.exception.ShelterNotFoundException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
@@ -8,14 +11,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
 import java.util.ArrayList;
 import java.util.List;
-import com.bemate.domain.shelter.entity.Shelter;
-import com.bemate.domain.shelter.repository.ShelterRepository;
-import com.bemate.global.exception.ShelterNotFoundException;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 
 @Service
 @RequiredArgsConstructor

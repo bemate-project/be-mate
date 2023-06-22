@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ShelterRepository extends JpaRepository<Shelter, Long> {
-
     Optional<Shelter> findByShelterName(String name);
 }

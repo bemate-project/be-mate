@@ -1,8 +1,6 @@
 package com.bemate.domain.user.entity;
 
 import com.bemate.domain.shelter.entity.ShelterUser;
-import com.bemate.domain.user.Role;
-import com.bemate.domain.user.entity.BaseEntity;
 import com.bemate.global.util.PasswordUtil;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,8 +10,8 @@ import java.util.List;
 @Entity
 @Builder
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "users")
 public class User extends BaseEntity {
     @Id
