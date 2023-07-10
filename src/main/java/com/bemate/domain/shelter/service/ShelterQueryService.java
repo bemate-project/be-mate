@@ -1,5 +1,6 @@
 package com.bemate.domain.shelter.service;
 
+import com.bemate.domain.shelter.endpoint.request.ShelterApiRequest;
 import com.bemate.domain.shelter.entity.Shelter;
 import com.bemate.domain.shelter.repository.ShelterRepository;
 import com.bemate.global.exception.ShelterNotFoundException;
@@ -31,13 +32,13 @@ public class ShelterQueryService {
                 .orElseThrow(() -> ShelterNotFoundException.byName(name));
     }
 
-    public List<String> getAllShelters() {
-        var response = getApiResponse();
+    public List<String> getAllShelters(ShelterApiRequest shelterApiRequest) {
+        var response = getApiResponse(shelterApiRequest);
 
         return parseShelterName(response);
     }
 
-    private JsonObject getApiResponse() {
+    private JsonObject getApiResponse(ShelterApiRequest shelterApiRequest) {
         var webClient = WebClient.builder()
                 .baseUrl(BASE_URL)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -48,8 +49,8 @@ public class ShelterQueryService {
                         uriBuilder
                                 .path(PATH)
                                 .queryParam("serviceKey", serviceKey)
-                                .queryParam("upr_cd", 6110000)
-                                .queryParam("org_cd", 3220000)
+                                .queryParam("upr_cd", shelterApiRequest.getStateProvinceCode())
+                                .queryParam("org_cd", shelterApiRequest.getCityCode())
                                 .queryParam("_type", "json")
                                 .build())
                 .retrieve()

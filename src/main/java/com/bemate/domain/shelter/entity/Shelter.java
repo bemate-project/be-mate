@@ -2,16 +2,13 @@ package com.bemate.domain.shelter.entity;
 
 import com.bemate.domain.user.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Builder
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Shelter extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

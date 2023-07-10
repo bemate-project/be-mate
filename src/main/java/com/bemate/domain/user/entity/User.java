@@ -23,7 +23,7 @@ public class User extends BaseEntity {
     private String salt;
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ShelterUser> shelterUsers;
 
     public void hashCredential(String password) {
