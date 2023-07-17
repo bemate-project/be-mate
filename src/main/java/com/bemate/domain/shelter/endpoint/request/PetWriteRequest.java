@@ -4,6 +4,7 @@ import com.bemate.domain.shelter.AdoptionStatus;
 import com.bemate.domain.shelter.Gender;
 import com.bemate.domain.shelter.HealthStatus;
 import com.bemate.domain.shelter.entity.Pet;
+import com.bemate.domain.shelter.entity.Shelter;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
@@ -26,9 +27,10 @@ public class PetWriteRequest {
     @Enumerated(EnumType.STRING)
     private AdoptionStatus adoptionStatus;
 
-    public Pet toPet(Long shelterNo) {
+    public Pet toPet(Shelter shelter) {
         return Pet.builder()
-                .id(generatePetId(shelterNo))
+                .id(generatePetId(shelter.getId()))
+                .shelter(shelter)
                 .species(species)
                 .kind(kind)
                 .age(age)

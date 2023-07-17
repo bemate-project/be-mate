@@ -12,9 +12,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
+import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Entity
 @Builder
@@ -33,20 +33,29 @@ public class Pet extends BaseEntity {
     private String characteristics;
     @Enumerated(EnumType.STRING)
     private HealthStatus healthStatus;
+    private String imageFolder;
     private String imageFiles;
     @Enumerated(EnumType.STRING)
     private AdoptionStatus adoptionStatus;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shelter_no")
+    private Shelter shelter;
+
     public void addImageFiles(List<? extends ImageFile> imageFiles) {
-        var fileNames = getFileNames(imageFiles).orElse("");
-        this.imageFiles = fileNames;
+        if (!isEmpty(imageFiles)) {
+            this.imageFolder = imageFiles.get(0).getBase();
+            this.imageFiles = getFileNames(imageFiles);
+        } else {
+            this.imageFolder = "";
+            this.imageFiles = "";
+        }
     }
 
-    private Optional<String> getFileNames(List<? extends ImageFile> imageFiles) {
-        return Optional.ofNullable(imageFiles
+    private String getFileNames(List<? extends ImageFile> imageFiles) {
+        return imageFiles
                 .stream()
                 .map(imageFile -> imageFile.getFileName())
-                .collect(joining("||"))
-        );
+                .collect(joining("||"));
     }
 }
