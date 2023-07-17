@@ -7,8 +7,8 @@ import lombok.*;
 @Entity
 @Builder
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Shelter extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +19,7 @@ public class Shelter extends BaseEntity {
     private String zipCode;
     private String streetAddress;
     private String detailAddress;
+
+    @OneToOne(mappedBy = "shelter", cascade = CascadeType.ALL)
+    private ShelterUser shelterUsers;
 }

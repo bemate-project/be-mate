@@ -21,7 +21,7 @@ public class LoginService {
             return LoginResponse.from(user, tokens);
         }
 
-        var shelters = shelterUserQueryService.getShelterJoin()
+        var shelters = shelterUserQueryService.getShelterJoin(user.getId())
                 .stream()
                 .map(ShelterUser::getShelter)
                 .toList();

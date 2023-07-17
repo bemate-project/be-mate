@@ -32,6 +32,11 @@ public class ShelterQueryService {
                 .orElseThrow(() -> ShelterNotFoundException.byName(name));
     }
 
+    public Shelter findById(Long id) {
+        return shelterRepository.findById(id)
+                .orElseThrow(() -> ShelterNotFoundException.byId(id));
+    }
+
     public List<String> getAllShelters(ShelterApiRequest shelterApiRequest) {
         var response = getApiResponse(shelterApiRequest);
 

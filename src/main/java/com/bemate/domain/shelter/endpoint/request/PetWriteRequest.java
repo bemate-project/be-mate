@@ -28,7 +28,7 @@ public class PetWriteRequest {
 
     public Pet toPet(Long shelterNo) {
         return Pet.builder()
-                .petKey(generatePetKey(shelterNo))
+                .id(generatePetId(shelterNo))
                 .species(species)
                 .kind(kind)
                 .age(age)
@@ -39,7 +39,7 @@ public class PetWriteRequest {
                 .build();
     }
 
-    private String generatePetKey(Long shelterNo) {
+    private String generatePetId(Long shelterNo) {
         var now = LocalDateTime.now();
         return shelterNo.toString() + "-" + now.getHour() + now.getMinute() + now.getSecond();
     }

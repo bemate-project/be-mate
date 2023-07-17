@@ -20,7 +20,7 @@ public class ShelterUser extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_no")
     private User user;
-    @ManyToOne(fetch = LAZY)
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "shelter_no")
     private Shelter shelter;
 }

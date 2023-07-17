@@ -1,11 +1,13 @@
 package com.bemate.global.infra.file;
 
+import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
+@Getter
 public abstract class ImageFile {
     private final String base;
     private final String fileName;

@@ -1,7 +1,6 @@
 package com.bemate.global.infra.file.service;
 
 import com.bemate.domain.shelter.file.PetImageFile;
-import com.bemate.global.infra.file.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +12,17 @@ import java.util.List;
 public class S3WriteService {
     private final S3Uploader s3Uploader;
 
-    public void upload(List<PetImageFile> petImageFile) {
-        for (var imageFile : petImageFile) {
-
-        }
+    public void upload(PetImageFile petImageFile) {
         try {
             s3Uploader.upload(petImageFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void upload(List<PetImageFile> petImageFiles) {
+        for (var petImageFile : petImageFiles) {
+            upload(petImageFile);
         }
     }
 }

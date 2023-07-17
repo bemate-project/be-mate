@@ -1,4 +1,4 @@
-package com.bemate.global.infra.file;
+package com.bemate.global.infra.file.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.PutObjectRequest;

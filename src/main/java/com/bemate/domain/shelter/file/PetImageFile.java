@@ -11,6 +11,6 @@ import static java.io.File.separator;
 @Getter
 public class PetImageFile extends ImageFile {
     public PetImageFile(Pet pet, MultipartFile file) {
-        super(String.join(separator, PET_BASE_PATH, pet.getPetKey()), file);
+        super(String.join(separator, PET_BASE_PATH, pet.getId()), file);
     }
 }
