@@ -30,4 +30,5 @@ public class ShelterWriteService {
         }
         return true;
     }
+
 }

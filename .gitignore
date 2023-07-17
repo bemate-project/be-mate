@@ -8,6 +8,9 @@ build/
 ## Querydsl ###
 generated
 
+### application.yml ###
+application.yml
+
 ### STS ###
 .apt_generated
 .classpath

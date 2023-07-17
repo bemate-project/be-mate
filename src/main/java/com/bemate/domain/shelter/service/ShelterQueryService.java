@@ -1,5 +1,9 @@
 package com.bemate.domain.shelter.service;
 
+import com.bemate.domain.shelter.endpoint.request.ShelterApiRequest;
+import com.bemate.domain.shelter.entity.Shelter;
+import com.bemate.domain.shelter.repository.ShelterRepository;
+import com.bemate.global.exception.ShelterNotFoundException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
@@ -8,14 +12,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
 import java.util.ArrayList;
 import java.util.List;
-import com.bemate.domain.shelter.entity.Shelter;
-import com.bemate.domain.shelter.repository.ShelterRepository;
-import com.bemate.global.exception.ShelterNotFoundException;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 
 @Service
 @RequiredArgsConstructor
@@ -33,13 +32,18 @@ public class ShelterQueryService {
                 .orElseThrow(() -> ShelterNotFoundException.byName(name));
     }
 
-    public List<String> getAllShelters() {
-        var response = getApiResponse();
+    public Shelter findById(Long id) {
+        return shelterRepository.findById(id)
+                .orElseThrow(() -> ShelterNotFoundException.byId(id));
+    }
+
+    public List<String> getAllShelters(ShelterApiRequest shelterApiRequest) {
+        var response = getApiResponse(shelterApiRequest);
 
         return parseShelterName(response);
     }
 
-    private JsonObject getApiResponse() {
+    private JsonObject getApiResponse(ShelterApiRequest shelterApiRequest) {
         var webClient = WebClient.builder()
                 .baseUrl(BASE_URL)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -50,8 +54,8 @@ public class ShelterQueryService {
                         uriBuilder
                                 .path(PATH)
                                 .queryParam("serviceKey", serviceKey)
-                                .queryParam("upr_cd", 6110000)
-                                .queryParam("org_cd", 3220000)
+                                .queryParam("upr_cd", shelterApiRequest.getStateProvinceCode())
+                                .queryParam("org_cd", shelterApiRequest.getCityCode())
                                 .queryParam("_type", "json")
                                 .build())
                 .retrieve()
