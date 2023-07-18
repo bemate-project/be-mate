@@ -1,6 +1,7 @@
 package com.bemate.domain.shelter.service;
 
 import com.bemate.domain.shelter.endpoint.request.PetQueryRequest;
+import com.bemate.domain.shelter.endpoint.response.dto.PetDto;
 import com.bemate.domain.shelter.endpoint.response.dto.PetShelterDto;
 import com.bemate.domain.shelter.repository.PetRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,5 +17,9 @@ public class PetQueryService {
 
     public Page<PetShelterDto> searchPage(PetQueryRequest request, Pageable pageable) {
         return petRepository.searchPage(request, pageable);
+    }
+
+    public Page<PetDto> searchByShelterNo(Long shelterNo, Pageable pageable) {
+        return null;
     }
 }
