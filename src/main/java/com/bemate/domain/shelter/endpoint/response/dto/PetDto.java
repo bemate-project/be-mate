@@ -3,11 +3,10 @@ package com.bemate.domain.shelter.endpoint.response.dto;
 import com.bemate.domain.shelter.AdoptionStatus;
 import com.bemate.domain.shelter.Gender;
 import com.bemate.domain.shelter.HealthStatus;
-import lombok.Getter;
+import com.bemate.domain.shelter.entity.Pet;
+import lombok.Data;
 
-import java.util.List;
-
-@Getter
+@Data
 public class PetDto {
     private String id;
     private String species;
@@ -16,6 +15,16 @@ public class PetDto {
     private Gender gender;
     private String characteristics;
     private HealthStatus healthStatus;
-    private List<String> images;
     private AdoptionStatus adoptionStatus;
+
+    public PetDto(Pet pet) {
+        this.id = pet.getId();
+        this.species = pet.getSpecies();
+        this.kind = pet.getKind();
+        this.age = pet.getAge();
+        this.gender = pet.getGender();
+        this.characteristics = pet.getCharacteristics();
+        this.healthStatus = pet.getHealthStatus();
+        this.adoptionStatus = pet.getAdoptionStatus();
+    }
 }

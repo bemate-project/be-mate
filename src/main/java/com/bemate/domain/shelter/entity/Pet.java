@@ -10,9 +10,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import static com.bemate.global.constant.ServerConstant.SERVER_HOST;
 import static java.util.stream.Collectors.joining;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
@@ -57,5 +61,15 @@ public class Pet extends BaseEntity {
                 .stream()
                 .map(imageFile -> imageFile.getFileName())
                 .collect(joining("||"));
+    }
+
+    public List<String> getImages() {
+        if (!StringUtils.hasText(imageFiles)) {
+            return Collections.emptyList();
+        }
+
+        return Arrays.stream(this.imageFiles.split("\\|\\|"))
+                .map(file -> String.format("%s/%s/%s", SERVER_HOST, this.imageFolder, file))
+                .toList();
     }
 }

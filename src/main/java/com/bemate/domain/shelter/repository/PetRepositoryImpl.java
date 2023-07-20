@@ -2,7 +2,6 @@ package com.bemate.domain.shelter.repository;
 
 import com.bemate.domain.shelter.AdoptionStatus;
 import com.bemate.domain.shelter.endpoint.request.PetQueryRequest;
-import com.bemate.domain.shelter.endpoint.response.dto.PetDto;
 import com.bemate.domain.shelter.endpoint.response.dto.PetShelterDto;
 import com.bemate.domain.shelter.endpoint.response.dto.QPetShelterDto;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -24,7 +23,7 @@ public class PetRepositoryImpl implements PetRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<PetShelterDto> searchPage(PetQueryRequest request, Pageable pageable) {
+    public Page<PetShelterDto> findByCondition(PetQueryRequest request, Pageable pageable) {
         var results = queryFactory
                 .select(new QPetShelterDto(
                         pet.id.as("petKey"),
@@ -58,11 +57,6 @@ public class PetRepositoryImpl implements PetRepositoryCustom {
         var size = results.size();
 
         return new PageImpl<>(results, pageable, size);
-    }
-
-    @Override
-    public Page<PetDto> findListByShelterNo(Long heroNo, Pageable pageable) {
-        return null;
     }
 
     private BooleanExpression petSpeciesEq(String species) {

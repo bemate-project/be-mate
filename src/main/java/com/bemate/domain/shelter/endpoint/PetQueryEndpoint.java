@@ -20,14 +20,12 @@ public class PetQueryEndpoint {
     private final ShelterQueryService shelterQueryService;
 
     @GetMapping("/shelters/pet")
-    public Page<PetShelterDto> searchPets(PetQueryRequest request, Pageable pageable) {
-        return petQueryService.searchPage(request, pageable);
+    public Page<PetShelterDto> findPets(PetQueryRequest request, Pageable pageable) {
+        return petQueryService.findByCondition(request, pageable);
     }
 
     @GetMapping("/shelters/{id}/pet")
-    public Page<PetDto> searchPetsByShelter(@PathVariable(value = "id") Long shelterNo,
-                                              Pageable pageable) {
-        shelterQueryService.findById(shelterNo);
-        return null;
+    public Page<PetDto> findPetsByShelterNo(@PathVariable(value = "id") Long shelterNo, Pageable pageable) {
+       return  petQueryService.findByShelterNo(shelterNo, pageable);
     }
 }

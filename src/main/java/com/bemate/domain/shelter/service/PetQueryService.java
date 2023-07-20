@@ -15,11 +15,12 @@ public class PetQueryService {
 
     private final PetRepository petRepository;
 
-    public Page<PetShelterDto> searchPage(PetQueryRequest request, Pageable pageable) {
-        return petRepository.searchPage(request, pageable);
+    public Page<PetShelterDto> findByCondition(PetQueryRequest request, Pageable pageable) {
+        return petRepository.findByCondition(request, pageable);
     }
 
-    public Page<PetDto> searchByShelterNo(Long shelterNo, Pageable pageable) {
-        return null;
+    public Page<PetDto> findByShelterNo(Long shelterNo, Pageable pageable) {
+        var page = petRepository.findByShelterNo(shelterNo, pageable);
+        return page.map(PetDto::new);
     }
 }
