@@ -26,6 +26,6 @@ public class PetQueryEndpoint {
 
     @GetMapping("/shelters/{id}/pet")
     public Page<PetDto> findPetsByShelterNo(@PathVariable(value = "id") Long shelterNo, Pageable pageable) {
-       return  petQueryService.findByShelterNo(shelterNo, pageable);
+       return  petQueryService.findByShelterNo(shelterQueryService.findById(shelterNo), pageable);
     }
 }

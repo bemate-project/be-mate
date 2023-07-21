@@ -26,7 +26,7 @@ public class Shelter extends BaseEntity {
     private String streetAddress;
     private String detailAddress;
 
-    @OneToMany(mappedBy = "shelter")
+    @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
     private List<Pet> pets = new ArrayList<>();
 
     @OneToOne(mappedBy = "shelter", cascade = CascadeType.ALL)
