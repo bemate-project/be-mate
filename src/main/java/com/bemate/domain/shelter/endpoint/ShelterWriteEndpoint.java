@@ -23,7 +23,7 @@ public class ShelterWriteEndpoint {
     private final UserQueryService userQueryService;
 
     @PostMapping("/shelters")
-    public ResponseEntity registerShelter(@RequestBody @Valid ShelterWriteRequest shelterWriteRequest,
+    public ResponseEntity register(@RequestBody @Valid ShelterWriteRequest shelterWriteRequest,
                                           @AuthenticationPrincipal Principal principal) {
         var registeredShelter = shelterWriteService.register(shelterWriteRequest.toShelter());
         shelterUserWriteService.register(

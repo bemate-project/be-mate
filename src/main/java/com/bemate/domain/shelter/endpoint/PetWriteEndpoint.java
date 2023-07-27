@@ -5,6 +5,7 @@ import com.bemate.domain.auth.Principal;
 import com.bemate.domain.shelter.endpoint.request.PetWriteRequest;
 import com.bemate.domain.shelter.file.PetImageFile;
 import com.bemate.domain.shelter.service.PetWriteService;
+import com.bemate.domain.shelter.service.ShelterQueryService;
 import com.bemate.domain.shelter.service.ShelterUserQueryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,11 +27,12 @@ import static java.util.Collections.emptyList;
 @RequiredArgsConstructor
 public class PetWriteEndpoint {
 
+    private final ShelterQueryService shelterQueryService;
     private final ShelterUserQueryService shelterUserQueryService;
     private final PetWriteService petWriteService;
 
     @PostMapping("/shelters/{id}/pet")
-    public ResponseEntity<HttpStatus> registerPet(@PathVariable(value = "id") Long shelterNo,
+    public ResponseEntity<HttpStatus> register(@PathVariable(value = "id") Long shelterNo,
                                                   @RequestPart(value = "petInfo") @Valid PetWriteRequest petWriteRequest,
                                                   @RequestPart(value = "images", required = false) List<MultipartFile> requestImages,
                                                   @AuthenticationPrincipal Principal principal) throws IOException {
@@ -41,7 +43,7 @@ public class PetWriteEndpoint {
             System.out.printf("Invalid shelterNo - " + shelterNo);
         }
 
-        var pet = petWriteRequest.toPet(shelterNo);
+        var pet = petWriteRequest.toPet(shelterUser.getShelter());
 
         List<PetImageFile> images = requestImages == null
                 ? emptyList()

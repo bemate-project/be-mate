@@ -10,11 +10,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
+import static com.bemate.global.constant.ServerConstant.SERVER_HOST;
 import static java.util.stream.Collectors.joining;
+import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Entity
 @Builder
@@ -33,20 +37,39 @@ public class Pet extends BaseEntity {
     private String characteristics;
     @Enumerated(EnumType.STRING)
     private HealthStatus healthStatus;
+    private String imageFolder;
     private String imageFiles;
     @Enumerated(EnumType.STRING)
     private AdoptionStatus adoptionStatus;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shelter_no")
+    private Shelter shelter;
+
     public void addImageFiles(List<? extends ImageFile> imageFiles) {
-        var fileNames = getFileNames(imageFiles).orElse("");
-        this.imageFiles = fileNames;
+        if (!isEmpty(imageFiles)) {
+            this.imageFolder = imageFiles.get(0).getBase();
+            this.imageFiles = getFileNames(imageFiles);
+        } else {
+            this.imageFolder = "";
+            this.imageFiles = "";
+        }
     }
 
-    private Optional<String> getFileNames(List<? extends ImageFile> imageFiles) {
-        return Optional.ofNullable(imageFiles
+    private String getFileNames(List<? extends ImageFile> imageFiles) {
+        return imageFiles
                 .stream()
                 .map(imageFile -> imageFile.getFileName())
-                .collect(joining("||"))
-        );
+                .collect(joining("||"));
+    }
+
+    public List<String> getImages() {
+        if (!StringUtils.hasText(imageFiles)) {
+            return Collections.emptyList();
+        }
+
+        return Arrays.stream(this.imageFiles.split("\\|\\|"))
+                .map(file -> String.format("%s/%s/%s", SERVER_HOST, this.imageFolder, file))
+                .toList();
     }
 }

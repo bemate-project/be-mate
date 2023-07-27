@@ -11,6 +11,9 @@ generated
 ### application.yml ###
 application.yml
 
+### tmp ###
+tmp
+
 ### STS ###
 .apt_generated
 .classpath

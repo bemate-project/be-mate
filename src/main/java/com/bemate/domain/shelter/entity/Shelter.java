@@ -4,11 +4,14 @@ import com.bemate.domain.user.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Builder
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Shelter extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +22,9 @@ public class Shelter extends BaseEntity {
     private String zipCode;
     private String streetAddress;
     private String detailAddress;
+
+    @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
+    private List<Pet> pets = new ArrayList<>();
 
     @OneToOne(mappedBy = "shelter", cascade = CascadeType.ALL)
     private ShelterUser shelterUsers;
