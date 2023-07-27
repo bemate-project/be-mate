@@ -8,6 +8,7 @@ import com.bemate.domain.shelter.service.ShelterQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,12 +21,12 @@ public class PetQueryEndpoint {
     private final ShelterQueryService shelterQueryService;
 
     @GetMapping("/shelters/pet")
-    public Page<PetShelterDto> findPets(PetQueryRequest request, Pageable pageable) {
-        return petQueryService.findByCondition(request, pageable);
+    public ResponseEntity<Page<PetShelterDto>> findPets(PetQueryRequest request, Pageable pageable) {
+        return ResponseEntity.ok(petQueryService.findByCondition(request, pageable));
     }
 
     @GetMapping("/shelters/{id}/pet")
-    public Page<PetDto> findPetsByShelterNo(@PathVariable(value = "id") Long shelterNo, Pageable pageable) {
-       return  petQueryService.findByShelterNo(shelterQueryService.findById(shelterNo), pageable);
+    public ResponseEntity<Page<PetDto>> findPetsByShelterNo(@PathVariable(value = "id") Long shelterNo, Pageable pageable) {
+       return ResponseEntity.ok(petQueryService.findByShelterNo(shelterQueryService.findById(shelterNo), pageable));
     }
 }

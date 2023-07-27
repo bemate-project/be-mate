@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PetRepository extends JpaRepository<Pet, String>, PetRepositoryCustom {
-    Page<Pet> findByShelterNo(Shelter shelter, Pageable pageable);
+    Page<Pet> findByShelter(Shelter shelter, Pageable pageable);
 }

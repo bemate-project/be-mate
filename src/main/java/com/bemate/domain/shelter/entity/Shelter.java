@@ -2,10 +2,7 @@ package com.bemate.domain.shelter.entity;
 
 import com.bemate.domain.user.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +10,8 @@ import java.util.List;
 @Entity
 @Builder
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Shelter extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
