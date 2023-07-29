@@ -27,5 +27,5 @@ public class Shelter extends BaseEntity {
     private List<Pet> pets = new ArrayList<>();
 
     @OneToOne(mappedBy = "shelter", cascade = CascadeType.ALL)
-    private ShelterUser shelterUsers;
+    private ShelterUser shelterUser;
 }

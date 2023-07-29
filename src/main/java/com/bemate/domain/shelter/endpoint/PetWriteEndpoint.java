@@ -5,7 +5,6 @@ import com.bemate.domain.auth.Principal;
 import com.bemate.domain.shelter.endpoint.request.PetWriteRequest;
 import com.bemate.domain.shelter.file.PetImageFile;
 import com.bemate.domain.shelter.service.PetWriteService;
-import com.bemate.domain.shelter.service.ShelterQueryService;
 import com.bemate.domain.shelter.service.ShelterUserQueryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,6 @@ import static java.util.Collections.emptyList;
 @RequiredArgsConstructor
 public class PetWriteEndpoint {
 
-    private final ShelterQueryService shelterQueryService;
     private final ShelterUserQueryService shelterUserQueryService;
     private final PetWriteService petWriteService;
 
