@@ -13,6 +13,7 @@ public class ApplicationWriteService {
 
     private final ApplicationRepository applicationRepository;
 
+    @Transactional
     public void submit(Application application) {
         var savedApplication = applicationRepository.save(application);
 
