@@ -1,5 +1,6 @@
 package com.bemate.domain.shelter.entity;
 
+import com.bemate.domain.application.entity.Application;
 import com.bemate.domain.shelter.AdoptionStatus;
 import com.bemate.domain.shelter.Gender;
 import com.bemate.domain.shelter.HealthStatus;
@@ -45,6 +46,9 @@ public class Pet extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shelter_no")
     private Shelter shelter;
+
+    @OneToMany(mappedBy = "pet", fetch = FetchType.LAZY)
+    private List<Application> applications;
 
     public void addImageFiles(List<? extends ImageFile> imageFiles) {
         if (!isEmpty(imageFiles)) {

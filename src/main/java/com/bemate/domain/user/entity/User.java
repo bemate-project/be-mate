@@ -1,5 +1,6 @@
 package com.bemate.domain.user.entity;
 
+import com.bemate.domain.application.entity.Application;
 import com.bemate.domain.shelter.entity.ShelterUser;
 import com.bemate.global.util.PasswordUtil;
 import jakarta.persistence.*;
@@ -22,6 +23,9 @@ public class User extends BaseEntity {
     private String nickname;
     private String salt;
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Application> applications;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ShelterUser> shelterUsers;
