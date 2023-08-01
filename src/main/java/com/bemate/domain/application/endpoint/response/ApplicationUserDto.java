@@ -3,30 +3,34 @@ package com.bemate.domain.application.endpoint.response;
 import com.bemate.domain.application.ApplicationStatus;
 import com.bemate.domain.application.HomeConditions;
 import com.bemate.domain.application.entity.Application;
-import com.bemate.domain.shelter.endpoint.response.dto.PetDto;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ApplicationPetDto {
+public class ApplicationUserDto {
     private Long applicationNo;
     private String zipCode;
     private String streetAddress;
     private String detailAddress;
     private HomeConditions homeConditions;
     private ApplicationStatus applicationStatus;
-    private PetDto pet;
+    private Long userNo;
+    private String email;
+    private String nickname;
 
-    public static ApplicationPetDto from(Application application) {
-        return ApplicationPetDto.builder()
+    public static ApplicationUserDto from(Application application) {
+        var user = application.getUser();
+        return ApplicationUserDto.builder()
                 .applicationNo(application.getId())
                 .zipCode(application.getZipCode())
                 .streetAddress(application.getStreetAddress())
                 .detailAddress(application.getDetailAddress())
                 .homeConditions(application.getHomeConditions())
                 .applicationStatus(application.getApplicationStatus())
-                .pet(PetDto.from(application.getPet()))
+                .userNo(user.getId())
+                .email(user.getEmail())
+                .nickname(user.getNickname())
                 .build();
     }
 }
