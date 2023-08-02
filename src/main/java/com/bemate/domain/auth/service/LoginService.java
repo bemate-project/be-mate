@@ -7,6 +7,8 @@ import com.bemate.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LoginService {
@@ -21,7 +23,9 @@ public class LoginService {
             return LoginResponse.from(user, tokens);
         }
 
-        var shelters = shelterUserQueryService.getShelterJoin(user.getId())
+        List<ShelterUser> byUserNo = shelterUserQueryService.findByUser(user);
+
+        var shelters = byUserNo
                 .stream()
                 .map(ShelterUser::getShelter)
                 .toList();

@@ -14,4 +14,8 @@ public class ApplicationNotFoundException extends NotFoundException {
     public static ApplicationNotFoundException byPetKey(String id) {
         return new ApplicationNotFoundException(String.format(String.format("Application is not found - petKey: %s", id)));
     }
+
+    public static ApplicationNotFoundException byId(Long id) {
+        return new ApplicationNotFoundException(String.format(String.format("Application is not found - applicationNo: %s", id)));
+    }
 }
