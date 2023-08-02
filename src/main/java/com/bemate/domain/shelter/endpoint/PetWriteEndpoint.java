@@ -35,7 +35,7 @@ public class PetWriteEndpoint {
                                                   @RequestPart(value = "images", required = false) List<MultipartFile> requestImages,
                                                   @AuthenticationPrincipal Principal principal) throws IOException {
 
-        var shelterUser = shelterUserQueryService.getUserJoin(shelterNo);
+        var shelterUser = shelterUserQueryService.findByShelter(shelterNo);
 
         if(shelterUser.getUser().getId() != principal.getUserNo()) {
             System.out.printf("Invalid shelterNo - " + shelterNo);

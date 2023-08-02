@@ -24,7 +24,7 @@ public class ApplicationWriteEndpoint {
     private final UserQueryService userQueryService;
     private final ApplicationWriteService applicationWriteService;
 
-    @PostMapping("/application/{id}")
+    @PostMapping("/applications/{id}")
     public ResponseEntity<HttpStatus> submit(@PathVariable(value = "id") Long userNo,
                                              @RequestBody @Valid ApplicationWriteRequest applicationWriteRequest,
                                              @AuthenticationPrincipal Principal principal) {

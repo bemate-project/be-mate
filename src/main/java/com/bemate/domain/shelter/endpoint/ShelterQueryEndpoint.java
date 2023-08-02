@@ -17,7 +17,7 @@ public class ShelterQueryEndpoint {
     private final ShelterQueryService shelterQueryService;
 
     @GetMapping("/shelters")
-    public ResponseEntity<List<String>> searchShelters(@RequestParam("stateProvinceCd") String stateProvinceCd,
+    public ResponseEntity<List<String>> findShelters(@RequestParam("stateProvinceCd") String stateProvinceCd,
                                                     @RequestParam("cityCd") String cityCd) {
         return ResponseEntity.ok(shelterQueryService.getAllShelters(
                 ShelterApiRequest.builder()

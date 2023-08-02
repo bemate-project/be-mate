@@ -29,6 +29,6 @@ public class PetQueryService {
 
     public Page<PetDto> findByShelterNo(Shelter shelter, Pageable pageable) {
         var page = petRepository.findByShelter(shelter, pageable);
-        return page.map(PetDto::new);
+        return page.map(PetDto::from);
     }
 }

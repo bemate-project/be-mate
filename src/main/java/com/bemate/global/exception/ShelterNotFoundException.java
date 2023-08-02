@@ -19,4 +19,8 @@ public class ShelterNotFoundException extends NotFoundException {
     public static ShelterNotFoundException byUserNo(Long id) {
         return new ShelterNotFoundException(String.format("Shelter is not found - userNo: %d", id));
     }
+
+    public static ShelterNotFoundException byPet(Long id) {
+        return new ShelterNotFoundException(String.format("Shelter is not found - userNo: %d", id));
+    }
 }

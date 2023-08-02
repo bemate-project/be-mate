@@ -28,7 +28,7 @@ public class LoginResponse {
     public static LoginResponse from(User user, List<Shelter> shelters, Token token) {
         return LoginResponse.builder()
                 .user(UserDto.from(user))
-                .shelters(shelters.stream().map(shelter -> ShelterDto.from(shelter)).toList())
+                .shelters(shelters.stream().map(ShelterDto::from).toList())
                 .tokens(TokenDto.from(token))
                 .build();
     }
