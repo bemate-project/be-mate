@@ -7,7 +7,6 @@ import com.bemate.global.infra.file.service.S3WriteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -17,10 +16,10 @@ public class PetWriteService {
     private final S3WriteService s3WriteService;
     private final PetRepository petRepository;
 
-    public Pet save(Pet pet, List<PetImageFile> petImageFiles) throws IOException {
-        s3WriteService.upload(petImageFiles);
+    public Pet register(Pet pet, List<PetImageFile> imageFiles) {
+        s3WriteService.upload(imageFiles);
 
-        pet.addImageFiles(petImageFiles);
+        pet.addImageFiles(imageFiles);
 
         return petRepository.save(pet);
     }

@@ -49,7 +49,7 @@ public class PetWriteEndpoint {
                 .map(image -> new PetImageFile(pet, image))
                 .toList();
 
-        petWriteService.save(pet, images);
+        petWriteService.register(pet, images);
 
         return new ResponseEntity(HttpStatus.OK);
     }

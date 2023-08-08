@@ -1,5 +1,6 @@
 package com.bemate.domain.shelter.entity;
 
+import com.bemate.domain.review.entity.Review;
 import com.bemate.domain.user.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,4 +29,7 @@ public class Shelter extends BaseEntity {
 
     @OneToOne(mappedBy = "shelter", cascade = CascadeType.ALL)
     private ShelterUser shelterUser;
+
+    @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
 }

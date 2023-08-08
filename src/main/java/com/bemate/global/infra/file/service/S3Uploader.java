@@ -2,7 +2,7 @@ package com.bemate.global.infra.file.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.bemate.domain.shelter.file.PetImageFile;
+import com.bemate.global.infra.file.ImageFile;
 import com.bemate.global.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,19 +20,19 @@ public class S3Uploader {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public void upload(PetImageFile petImageFile) throws IOException {
-        var tempFolder = String.join(separator, TEMP_FOLDER_PATH, petImageFile.getBase());
+    public void upload(ImageFile imageFile) throws IOException {
+        var tempFolder = String.join(separator, TEMP_FOLDER_PATH, imageFile.getBase());
 
         if (!FileUtil.isExistFolder(tempFolder)) {
             FileUtil.createFolder(tempFolder);
         }
 
-        var localFile = FileUtil.saveMultipartFileInLocal(petImageFile.getBytes(),
-                String.join(separator, tempFolder, petImageFile.getFileName()));
+        var localFile = FileUtil.saveMultipartFileInLocal(imageFile.getBytes(),
+                String.join(separator, tempFolder, imageFile.getFileName()));
 
         amazonS3Client.putObject(new PutObjectRequest(
                 bucket,
-                String.join(separator, petImageFile.getBase(), petImageFile.getFileName()),
+                String.join(separator, imageFile.getBase(), imageFile.getFileName()),
                 localFile));
 
         localFile.delete();

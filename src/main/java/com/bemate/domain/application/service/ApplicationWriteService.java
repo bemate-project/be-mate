@@ -14,7 +14,7 @@ public class ApplicationWriteService {
     private final ApplicationRepository applicationRepository;
 
     @Transactional
-    public void submit(Application application) {
+    public void write(Application application) {
         var savedApplication = applicationRepository.save(application);
 
         if(savedApplication != null) {

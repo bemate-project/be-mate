@@ -25,7 +25,7 @@ public class ApplicationWriteEndpoint {
     private final ApplicationWriteService applicationWriteService;
 
     @PostMapping("/applications/{id}")
-    public ResponseEntity<HttpStatus> submit(@PathVariable(value = "id") Long userNo,
+    public ResponseEntity<HttpStatus> write(@PathVariable(value = "id") Long userNo,
                                              @RequestBody @Valid ApplicationWriteRequest applicationWriteRequest,
                                              @AuthenticationPrincipal Principal principal) {
 
@@ -36,7 +36,7 @@ public class ApplicationWriteEndpoint {
         var user = userQueryService.findById(userNo);
         var pet = petQueryService.findById(applicationWriteRequest.getPetKey());
 
-        applicationWriteService.submit(applicationWriteRequest.toApplication(user, pet));
+        applicationWriteService.write(applicationWriteRequest.toApplication(user, pet));
 
         return new ResponseEntity(HttpStatus.OK);
     }
