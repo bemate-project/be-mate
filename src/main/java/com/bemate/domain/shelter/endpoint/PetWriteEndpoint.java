@@ -36,11 +36,6 @@ public class PetWriteEndpoint {
                                                   @AuthenticationPrincipal Principal principal) throws IOException {
 
         var shelterUser = shelterUserQueryService.findByShelter(shelterNo);
-
-        if(shelterUser.getUser().getId() != principal.getUserNo()) {
-            System.out.printf("Invalid shelterNo - " + shelterNo);
-        }
-
         var pet = petWriteRequest.toPet(shelterUser.getShelter());
 
         List<PetImageFile> images = requestImages == null
