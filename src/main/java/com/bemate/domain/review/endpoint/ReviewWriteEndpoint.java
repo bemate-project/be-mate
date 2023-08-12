@@ -1,6 +1,5 @@
 package com.bemate.domain.review.endpoint;
 
-import com.bemate.domain.auth.Principal;
 import com.bemate.domain.review.endpoint.request.ReviewWriteRequest;
 import com.bemate.domain.review.file.ReviewImageFile;
 import com.bemate.domain.review.service.ReviewWriteService;
@@ -9,7 +8,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,8 +26,7 @@ public class ReviewWriteEndpoint {
 
     @PostMapping("/reviews")
     public ResponseEntity<HttpStatus> write(@RequestPart(value = "reviewInfo") @Valid ReviewWriteRequest reviewWriteRequest,
-                                                  @RequestPart(value = "images", required = false) List<MultipartFile> requestImages,
-                                                  @AuthenticationPrincipal Principal principal) {
+                                                  @RequestPart(value = "images", required = false) List<MultipartFile> requestImages) {
 
         var shelter = shelterQueryService.findByName(reviewWriteRequest.getShelterName());
         var review = reviewWriteRequest.toReview(shelter);
