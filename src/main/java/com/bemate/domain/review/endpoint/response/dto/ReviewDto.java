@@ -12,6 +12,7 @@ public class ReviewDto {
     private String content;
     private String imageFolder;
     private String imageFiles;
+    private String shelterName;
 
     public static ReviewDto from(Review review) {
         return ReviewDto.builder()
@@ -20,6 +21,7 @@ public class ReviewDto {
                 .content(review.getContent())
                 .imageFolder(review.getImageFolder())
                 .imageFiles(review.getImageFiles())
+                .shelterName(review.getShelter().getShelterName())
                 .build();
     }
 }
