@@ -1,6 +1,7 @@
 package com.bemate.domain.review.entity;
 
 import com.bemate.domain.shelter.entity.Shelter;
+import com.bemate.domain.user.entity.User;
 import com.bemate.global.infra.file.ImageFile;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +30,10 @@ public class Review {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "shelter_no")
     private Shelter shelter;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_no")
+    private User user;
 
     public void addImageFiles(List<? extends ImageFile> imageFiles) {
         if (!isEmpty(imageFiles)) {
