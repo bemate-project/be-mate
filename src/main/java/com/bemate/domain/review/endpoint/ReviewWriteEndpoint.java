@@ -1,13 +1,16 @@
 package com.bemate.domain.review.endpoint;
 
+import com.bemate.domain.auth.Principal;
 import com.bemate.domain.review.endpoint.request.ReviewWriteRequest;
 import com.bemate.domain.review.file.ReviewImageFile;
 import com.bemate.domain.review.service.ReviewWriteService;
 import com.bemate.domain.shelter.service.ShelterQueryService;
+import com.bemate.domain.user.service.UserQueryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,13 +26,16 @@ public class ReviewWriteEndpoint {
 
     private final ShelterQueryService shelterQueryService;
     private final ReviewWriteService reviewWriteService;
+    private final UserQueryService userQueryService;
 
     @PostMapping("/reviews")
     public ResponseEntity<HttpStatus> write(@RequestPart(value = "reviewInfo") @Valid ReviewWriteRequest reviewWriteRequest,
-                                                  @RequestPart(value = "images", required = false) List<MultipartFile> requestImages) {
+                                            @RequestPart(value = "images", required = false) List<MultipartFile> requestImages,
+                                            @AuthenticationPrincipal Principal principal) {
 
         var shelter = shelterQueryService.findByName(reviewWriteRequest.getShelterName());
-        var review = reviewWriteRequest.toReview(shelter);
+        var user = userQueryService.findById(principal.getUserNo());
+        var review = reviewWriteRequest.toReview(shelter, user);
 
         List<ReviewImageFile> images = requestImages == null
                 ? emptyList()
