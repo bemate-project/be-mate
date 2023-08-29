@@ -6,6 +6,8 @@ import com.bemate.domain.auth.Principal;
 import com.bemate.domain.shelter.service.PetQueryService;
 import com.bemate.domain.user.service.UserQueryService;
 import com.bemate.global.exception.UserMismatchException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Application")
 public class ApplicationWriteEndpoint {
 
     private final PetQueryService petQueryService;
@@ -25,6 +28,7 @@ public class ApplicationWriteEndpoint {
     private final ApplicationWriteService applicationWriteService;
 
     @PostMapping("/applications/{id}")
+    @Operation(summary = "Write Application")
     public ResponseEntity<HttpStatus> write(@PathVariable(value = "id") Long userNo,
                                              @RequestBody @Valid ApplicationWriteRequest applicationWriteRequest,
                                              @AuthenticationPrincipal Principal principal) {

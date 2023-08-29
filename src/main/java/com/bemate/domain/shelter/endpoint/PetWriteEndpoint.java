@@ -6,6 +6,8 @@ import com.bemate.domain.shelter.endpoint.request.PetWriteRequest;
 import com.bemate.domain.shelter.file.PetImageFile;
 import com.bemate.domain.shelter.service.PetWriteService;
 import com.bemate.domain.shelter.service.ShelterUserQueryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,12 +26,14 @@ import static java.util.Collections.emptyList;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Pet")
 public class PetWriteEndpoint {
 
     private final ShelterUserQueryService shelterUserQueryService;
     private final PetWriteService petWriteService;
 
     @PostMapping("/shelters/{id}/pet")
+    @Operation(summary = "Register Pet")
     public ResponseEntity<HttpStatus> register(@PathVariable(value = "id") Long shelterNo,
                                                   @RequestPart(value = "petInfo") @Valid PetWriteRequest petWriteRequest,
                                                   @RequestPart(value = "images", required = false) List<MultipartFile> requestImages,

@@ -6,6 +6,8 @@ import com.bemate.domain.review.file.ReviewImageFile;
 import com.bemate.domain.review.service.ReviewWriteService;
 import com.bemate.domain.shelter.service.ShelterQueryService;
 import com.bemate.domain.user.service.UserQueryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ import static java.util.Collections.emptyList;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Review")
 public class ReviewWriteEndpoint {
 
     private final ShelterQueryService shelterQueryService;
@@ -29,6 +32,7 @@ public class ReviewWriteEndpoint {
     private final UserQueryService userQueryService;
 
     @PostMapping("/reviews")
+    @Operation(summary = "Write Review")
     public ResponseEntity<HttpStatus> write(@RequestPart(value = "reviewInfo") @Valid ReviewWriteRequest reviewWriteRequest,
                                             @RequestPart(value = "images", required = false) List<MultipartFile> requestImages,
                                             @AuthenticationPrincipal Principal principal) {

@@ -7,9 +7,10 @@ import com.bemate.domain.auth.service.LoginService;
 import com.bemate.domain.user.service.UserQueryService;
 import com.bemate.global.exception.PasswordMismatchException;
 import com.bemate.global.util.PasswordUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "User")
 public class LoginEndpoint {
 
     private final UserQueryService userQueryService;
     private final LoginService loginService;
 
     @PostMapping("/auths/login")
+    @Operation(summary = "Login")
     public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
         var user = userQueryService.findByEmail(loginRequest.getEmail());
 

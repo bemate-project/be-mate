@@ -19,6 +19,6 @@ public class SwaggerConfig {
         return new Info()
                 .title("BeMate API")
                 .description("BeMate API Specification Using Swagger UI")
-                .version("1.0.0");
+                .version("1.0");
     }
 }
