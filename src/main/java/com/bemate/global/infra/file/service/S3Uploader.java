@@ -30,12 +30,20 @@ public class S3Uploader {
         var localFile = FileUtil.saveMultipartFileInLocal(imageFile.getBytes(),
                 String.join(separator, tempFolder, imageFile.getFileName()));
 
+        String base = String.join(separator, imageFile.getBase(), imageFile.getFileName());
+
         amazonS3Client.putObject(new PutObjectRequest(
                 bucket,
-                String.join(separator, imageFile.getBase(), imageFile.getFileName()),
+                base.replaceAll("\\\\", "\\/"),
                 localFile));
 
         localFile.delete();
     }
 
+    public void delete(String base) throws IOException {
+        var listObjectsV2Result = amazonS3Client.listObjectsV2(bucket, base);
+        for (var objectSummary : listObjectsV2Result.getObjectSummaries()) {
+            amazonS3Client.deleteObject(bucket, objectSummary.getKey());
+        }
+    }
 }

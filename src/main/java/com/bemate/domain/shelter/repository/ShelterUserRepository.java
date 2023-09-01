@@ -1,6 +1,5 @@
 package com.bemate.domain.shelter.repository;
 
-import com.bemate.domain.shelter.entity.Shelter;
 import com.bemate.domain.shelter.entity.ShelterUser;
 import com.bemate.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +16,9 @@ public interface ShelterUserRepository extends JpaRepository<ShelterUser, Long> 
             "where t.user = :user")
     Optional<List<ShelterUser>> findByUser(@Param("user") User user);
 
-    @Query("select t from ShelterUser t left join fetch t.user")
-    Optional<ShelterUser> findByShelter(Shelter shelter);
+    @Query("select t from ShelterUser t " +
+            "join fetch t.shelter s " +
+            "join fetch t.user " +
+            "where s.id = :id")
+    Optional<ShelterUser> findByShelterNo(@Param("id") Long shelterNo);
 }

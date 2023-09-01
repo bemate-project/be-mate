@@ -22,7 +22,7 @@ public class ShelterUserQueryService {
     }
 
     public ShelterUser findByShelter(Long shelterNo) {
-        return shelterUserRepository.findByShelter(shelterQueryService.findById(shelterNo))
+        return shelterUserRepository.findByShelterNo(shelterNo)
                 .orElseThrow(() -> ShelterNotFoundException.byId(shelterNo));
     }
 }

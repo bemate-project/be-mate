@@ -4,6 +4,7 @@ import com.bemate.domain.application.entity.Application;
 import com.bemate.domain.shelter.AdoptionStatus;
 import com.bemate.domain.shelter.Gender;
 import com.bemate.domain.shelter.HealthStatus;
+import com.bemate.domain.shelter.endpoint.request.PetWriteRequest;
 import com.bemate.domain.user.entity.BaseEntity;
 import com.bemate.global.infra.file.ImageFile;
 import jakarta.persistence.*;
@@ -53,18 +54,26 @@ public class Pet extends BaseEntity {
     public void addImageFiles(List<? extends ImageFile> imageFiles) {
         if (!isEmpty(imageFiles)) {
             this.imageFolder = imageFiles.get(0).getBase();
-            this.imageFiles = getFileNames(imageFiles);
+            this.imageFiles = getImageNames(imageFiles);
         } else {
             this.imageFolder = "";
             this.imageFiles = "";
         }
     }
 
-    private String getFileNames(List<? extends ImageFile> imageFiles) {
+    private String getImageNames(List<? extends ImageFile> imageFiles) {
         return imageFiles
                 .stream()
                 .map(imageFile -> imageFile.getFileName())
                 .collect(joining("||"));
+    }
+
+    public List<String> getImageNamesList() {
+        if (!StringUtils.hasText(imageFiles)) {
+            return Collections.emptyList();
+        }
+
+        return Arrays.stream(this.imageFiles.split("\\|\\|")).toList();
     }
 
     public List<String> getImages() {
@@ -75,5 +84,15 @@ public class Pet extends BaseEntity {
         return Arrays.stream(this.imageFiles.split("\\|\\|"))
                 .map(file -> String.format("%s/%s/%s", SERVER_HOST, this.imageFolder, file))
                 .toList();
+    }
+
+    public void updatePetInfo(PetWriteRequest petWriteRequest) {
+        this.species = petWriteRequest.getSpecies();
+        this.kind = petWriteRequest.getKind();
+        this.age = petWriteRequest.getAge();
+        this.gender = petWriteRequest.getGender();
+        this.characteristics = petWriteRequest.getCharacteristics();
+        this.healthStatus = petWriteRequest.getHealthStatus();
+        this.adoptionStatus = petWriteRequest.getAdoptionStatus();
     }
 }
