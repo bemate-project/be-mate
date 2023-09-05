@@ -41,7 +41,9 @@ public class S3Uploader {
     }
 
     public void delete(String base) throws IOException {
+        base = base.replaceAll("\\\\", "\\/");
         var listObjectsV2Result = amazonS3Client.listObjectsV2(bucket, base);
+
         for (var objectSummary : listObjectsV2Result.getObjectSummaries()) {
             amazonS3Client.deleteObject(bucket, objectSummary.getKey());
         }

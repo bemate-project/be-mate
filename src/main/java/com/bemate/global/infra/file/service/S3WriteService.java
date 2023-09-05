@@ -42,6 +42,9 @@ public class S3WriteService {
 
     public void delete(String base, List<String> fileNames) {
         for (var fileName : fileNames) {
+            if(fileName.startsWith("lp-media")) {
+                continue;
+            }
             delete(String.join(separator, base, fileName));
         }
     }

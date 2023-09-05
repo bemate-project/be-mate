@@ -8,10 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static com.bemate.global.util.StreamUtil.toStream;
-import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Service
 @RequiredArgsConstructor
@@ -30,14 +31,15 @@ public class PetWriteService {
 
     @Transactional
     public void update(Pet pet, List<PetImageFile> imageFiles) {
-        delete(pet, imageFiles);
+        var unusedImageNames = getUnusedImages(pet, imageFiles).orElseGet(Collections::emptyList);
+        s3WriteService.delete(pet.getImageFolder(), unusedImageNames);
 
         s3WriteService.upload(imageFiles);
 
         pet.addImageFiles(imageFiles);
     }
 
-    private void delete(Pet pet, List<PetImageFile> imageFiles) {
+    private Optional<List<String>> getUnusedImages(Pet pet, List<PetImageFile> imageFiles) {
         var requestImageNames = toStream(imageFiles)
                 .map(file -> file.getFileName())
                 .toList();
@@ -46,8 +48,6 @@ public class PetWriteService {
                 .filter(name -> !requestImageNames.contains(name))
                 .toList();
 
-        if (!isEmpty(unusedImageNames)) {
-            s3WriteService.delete(pet.getImageFolder(), unusedImageNames);
-        }
+        return Optional.ofNullable(unusedImageNames);
     }
 }
